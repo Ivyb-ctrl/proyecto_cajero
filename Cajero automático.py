@@ -1,40 +1,112 @@
-base_datos =  {"Juan": 10000, "María": 20000, "Sofia": 100.000}
-seleccion = 0
-while seleccion >= 3:
-    seleccion = int(input("¿Usted quién es?:\n0: Juan:\n1: María:\n2: Sofia\n3: SALIR\n"))
-    
-    # if seleccion == 0 or seleccion == 1 or seleccion == 2 or seleccion == 3:
-    if seleccion in (0,1,2): 
-        seleccion_cliente = list(base_datos.keys() ) [seleccion]
-        print("El cliente seleccionado fue:", seleccion_cliente)
-    
-    if seleccion== 0:
-        print("Usted es el cliente #1")
-    elif seleccion== 1:
-        print("Usted es el cliente #2")
-        
-    elif seleccion== 2:
-        print("Usted es el cliente #3")
-        
-    elif seleccion== 3:
-        print("Usted decidió SALIR")
-    
-    else: 
-        print("Error: no seleccionó opción válida")
+import numpy as np
+ 
+ 
+lista_nombres = ["Sofía", "Mateo", "Isabella", "Lucas", "Valentina", "Alejandro", "Emma", "Santiago", "Martina", 
 
-operacion = int(input("¿Usted qué acción desea realizar?:\n1: Consultar:\n2: Retirar:\n3: Consignar: \n4:SALIR"))
+                 "Sebastián", "Camila", "Nicolás", "Valeria", "Gabriel", "Antonella", "Daniel", "Lucía", "Andrés", 
 
-if operacion== 1:
-    print("Este es el saldo de la cuenta:", base_datos)
-elif seleccion== 2:
-    print("Usted es el cliente #2")
+                 "Renata", "Adrián", "Sara", "Diego", "Julieta", "Joaquín", "Paula", "Leonardo", "Victoria", "Benjamín", 
+
+                 "María", "Samuel", "Amelia", "David", "Elena", "Maximiliano", "Montserrat", "Ángel", "Regina", "Tomás", 
+
+                 "Jimena", "Cristóbal", "Fernanda", "Bruno", "Ana", "Ricardo", "Ximena", "Gael", "Andrea", "Matías", "Carolina", 
+
+                 "Thiago", "Daniela", "Emilio", "Alicia", "Jerónimo", "Natalia", "Dylan", "Claudia", "Iker", "Patricia", 
+
+                 "Iván", "Alejandra", "Alan", "Laura", "Franco", "Gabriela", "Jesús", "Mariana", "Rodrigo", "Lorena", "Martín", 
+
+                 "Melissa", "Juan", "Paola", "Carlos", "Diana", "Pedro", "Carmen", "Miguel", "Rosa", "Jorge", "Gloria", "Luis", 
+
+                 "Silvia", "Antonio", "Isabel", "José", "Esther", "Manuel", "Beatriz", "Francisco", "Raquel", "Javier", "Susana", 
+
+                 "Raúl", "Pilar", "Alberto", "Eva", "Enrique", "Dolores", "Sergio", "Mercedes", "Óscar", "Cristina", "Julio", 
+
+                 "Rosario"]
+ 
+ 
+dict_users = {}
+ 
+for i_name in lista_nombres:
+
+    dict_users[ i_name.lower() ] = [ np.random.randint(10000, 500000), f'{i_name.lower()}_1' ]
+ 
+ 
+print(dict_users)
+ 
+dict_users = { i:np.random.randint(10000, 500000) for i in lista_nombres }
+ 
+str_nombre = ''
+ 
+for enu, i_name in enumerate(lista_nombres):
+
+    str_nombre = str_nombre + f'\n{enu}: ' + i_name
+ 
+ 
+# 
+
+while True:
+
+    try:
+
+        seleccion = int(input(f'¿Usted quién es?: {str_nombre}\n105: SALIR\n'))
+
+    except:
+
+        print('Selección inválida')
+
+        continue
+ 
+ 
+    print('Ingresó una selección no válida')
+ 
     
-elif seleccion== 3:
-    print("Usted es el cliente #3")
-    
-elif seleccion== 4:
-    print("Usted decidió SALIR")
 
-else: 
-    print("Error: no seleccionó opción válida")
+    seleccion_cliente = lista_nombres[seleccion]
 
+    if seleccion in range(len(lista_nombres)):
+
+        while True:
+
+            operaciones = int(input('¿Qué quiere hacer?:\n0: Ver\n1: Retirar\n2: Consignar\n3: SALIR\n'))
+
+            saldo_cuenta_usuario = dict_users[seleccion_cliente]
+
+            # Ver
+
+            if operaciones == 0:
+
+                print(saldo_cuenta_usuario)
+
+            # Retirar
+
+            elif operaciones == 1:
+
+                valor_retiro = int(input('¿Cunáto quiere retirar: '))
+
+                if valor_retiro <= saldo_cuenta_usuario:
+
+                    print('Retiro exitoso')
+
+                    dict_users[seleccion_cliente] = saldo_cuenta_usuario - valor_retiro
+
+                    print('Su saldo es:', dict_users[seleccion_cliente])                   
+
+            # Consignar
+
+            elif operaciones == 2:
+
+                valor_consignar = int(input('¿Cunáto quiere consignar: '))
+
+                dict_users[seleccion_cliente] = saldo_cuenta_usuario + valor_consignar
+
+            else:
+
+                break
+ 
+    elif seleccion==105:
+
+        break
+
+    else:
+
+        print('Error: no seleccionó una opción válida')
